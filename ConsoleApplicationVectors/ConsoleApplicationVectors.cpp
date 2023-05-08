@@ -5,6 +5,7 @@
 #include "MultiplicationModulo.h"
 #include "Line3D.h"
 #include "Circle.h"
+#include "LineDivision.h"
 
 int main()
 {
@@ -27,7 +28,10 @@ int main()
     // Line3D::example();
 
     // Circle examples
-    Circle::example();
+    // Circle::example();
+
+    // LineDivision examples
+    LineDivision::example();
 
     return 0;
 }

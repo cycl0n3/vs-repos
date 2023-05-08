@@ -12,6 +12,7 @@ class Circle
 public:
     Circle(const Point3D& center);
     Circle(const Point3D& center, double radius);
+    
     double getArea();
     double getRadius();
 

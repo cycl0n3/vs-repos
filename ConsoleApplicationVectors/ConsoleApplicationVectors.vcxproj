@@ -131,6 +131,7 @@
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="ConsoleApplicationVectors.cpp" />
     <ClCompile Include="Line3D.cpp" />
+    <ClCompile Include="LineDivision.cpp" />
     <ClCompile Include="MultiplicationModulo.cpp" />
     <ClCompile Include="Point3D.cpp" />
     <ClCompile Include="Vector3D.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="AdditionModulo.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Line3D.h" />
+    <ClInclude Include="LineDivision.h" />
     <ClInclude Include="MultiplicationModulo.h" />
     <ClInclude Include="Point3D.h" />
     <ClInclude Include="Vector3D.h" />
