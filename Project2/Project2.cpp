@@ -2,6 +2,7 @@
 
 // import opencv header files
 #include <opencv2/core.hpp>
+#include <opencv2/core/ocl.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 
@@ -17,7 +18,7 @@ int main()
     }
 
     cv::resize(shops, shops, cv::Size(), 0.5, 0.5);
-
+    
     cv::namedWindow("Shops", cv::WINDOW_AUTOSIZE);
     cv::imshow("Shops", shops);
 
