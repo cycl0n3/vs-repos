@@ -8,15 +8,15 @@
 int main()
 {
     cv::Mat shops;
-    shops = cv::imread("shops.jpg", cv::IMREAD_COLOR);
+    shops = cv::imread("shops.png", cv::IMREAD_COLOR);
 
     if (shops.empty())
     {
-        std::cout << "Could not read the image: " << "shops.jpg" << std::endl;
+        std::cout << "Could not read the image: " << "shops.png" << std::endl;
         return 1;
     }
 
-    cv::resize(shops, shops, cv::Size(), 1.0, 0.75);
+    cv::resize(shops, shops, cv::Size(), 0.5, 0.5);
 
     cv::namedWindow("Shops", cv::WINDOW_AUTOSIZE);
     cv::imshow("Shops", shops);
