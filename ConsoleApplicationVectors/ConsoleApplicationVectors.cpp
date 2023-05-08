@@ -4,6 +4,7 @@
 #include "AdditionModulo.h"
 #include "MultiplicationModulo.h"
 #include "Line3D.h"
+#include "Circle.h"
 
 int main()
 {
@@ -23,7 +24,10 @@ int main()
     // MultiplicationModulo::example();
 
     // Line3D examples
-    Line3D::example();
+    // Line3D::example();
+
+    // Circle examples
+    Circle::example();
 
     return 0;
 }
