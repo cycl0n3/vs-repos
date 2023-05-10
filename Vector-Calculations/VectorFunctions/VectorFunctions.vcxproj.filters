@@ -15,15 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Pointers.cpp">
+    <ClCompile Include="VectorFunctions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="app.h">
+    <ClInclude Include="example1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
