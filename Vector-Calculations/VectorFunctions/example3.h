@@ -23,44 +23,37 @@ void runExample3()
         };
     };
 
-    // curve vector = C
-    auto curve = [](double t) {
-        return std::vector<double>{
-            std::cos(t),
-            std::sin(t),
-            t
-        };
+    auto norm = [&dot](auto x) {
+        return std::sqrt(dot(x, x));
     };
 
-    // unit velocity vector = T
-    auto velocity = [](double t) {
-        return std::vector<double>{
-            -std::sin(t),
-            std::cos(t),
-            1.0
-        };
+    auto angle = [&dot, &norm](auto x, auto y) {
+        return std::acos(dot(x, y) / (norm(x) * norm(y)));
     };
 
-    // normal vector = N = T' / |T'|
-    auto normal = [](double t) {
-        return std::vector<double>{
-            -std::cos(t),
-            -std::sin(t),
-            0.0
-        };
+    auto print = [](auto x) {
+        std::cout << std::fixed << std::setprecision(3);
+        for (auto i : x)
+            std::cout << i << " ";
+        std::cout << std::endl;
     };
 
-    // binormal vector = B = T x N
-    auto binormal = [](double t) {
-        return std::vector<double>{
-            0.0,
-            0.0,
-            1.0
-        };
-    };
+    auto vec1 = std::vector<double>{ 1, 2, 3 };
+    auto vec2 = std::vector<double>{ 4, 5, 6 };
 
-    // curvature = |T'| / |r'|
-    auto curvature = [](double t) {
-        return 1.0;
-    };
+    std::cout << "vec1: ";
+    print(vec1);
+
+    std::cout << "vec2: ";
+    print(vec2);
+
+    std::cout << "dot(vec1, vec2): " << dot(vec1, vec2) << std::endl;
+    
+    std::cout << "cross(vec1, vec2): ";
+    print(cross(vec1, vec2));
+
+    std::cout << "norm(vec1): " << norm(vec1) << std::endl;
+
+    std::cout << "angle(vec1, vec2): " << angle(vec1, vec2) << std::endl;
+    std::cout << "angle(vec1, vec2) * 180 / pi: " << angle(vec1, vec2) * 180 / 3.14159265358979323846 << std::endl;
 }
