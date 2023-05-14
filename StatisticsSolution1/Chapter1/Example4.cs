@@ -37,14 +37,24 @@ namespace Chapter1
             var range = data.Max(x => x.Marks) - data.Min(x => x.Marks);
             Console.WriteLine($"Range: {range}");
 
-            var mean = data.Average(x => x.Marks);
+            // mean by frequency
+            var mean = data.Sum(x => x.Marks * x.Frequency) / data.Sum(x => x.Frequency);
             Console.WriteLine($"Mean: {mean}");
 
-            var variance = data.Average(x => Math.Pow(x.Marks - mean, 2));
+            // sample variance
+            var variance = data.Sum(x => Math.Pow(x.Marks - mean, 2) * x.Frequency) / (data.Sum(x => x.Frequency) - 1);
             Console.WriteLine($"Variance: {variance}");
 
             var stdDev = Math.Sqrt(variance);
             Console.WriteLine($"Standard Deviation: {stdDev}");
+
+            // coefficient of variation
+            var cv = stdDev / mean;
+            Console.WriteLine($"Coefficient of Variation: {cv}");
+
+            // skewness
+            var skewness = data.Sum(x => Math.Pow(x.Marks - mean, 3) * x.Frequency) / (data.Sum(x => x.Frequency) * Math.Pow(stdDev, 3));
+            Console.WriteLine($"Skewness: {skewness}");
 
             var total = data.Sum(x => x.Frequency);
             Console.WriteLine($"Total: {total}");
