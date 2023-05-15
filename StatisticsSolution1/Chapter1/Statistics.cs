@@ -18,6 +18,12 @@ namespace Chapter1
             return data.Sum() / data.Count();
         }
 
+        public static double MeanAbsoluteDeviation(IEnumerable<double> data)
+        {
+            var mean = Mean(data);
+            return data.Sum(x => Math.Abs(x - mean)) / data.Count();
+        }
+
         public static double Variance(IEnumerable<double> data)
         {
             var mean = Mean(data);
@@ -27,6 +33,23 @@ namespace Chapter1
         public static double StandardDeviation(IEnumerable<double> data)
         {
             return Math.Sqrt(Variance(data));
+        }
+
+        // EMPIRICAL RULE
+        public static double EmpiricalRule(IEnumerable<double> data, double k)
+        {
+            var mean = Mean(data);
+            var stdDev = StandardDeviation(data);
+            var n = data.Count();
+            var count = data.Count(x => Math.Abs(x - mean) <= k * stdDev);
+            return (double)count / n * 100;
+        }
+
+        public static Tuple<long, long> EmpiricalRuleRange(IEnumerable<double> data, double k)
+        {
+            var mean = Mean(data);
+            var stdDev = StandardDeviation(data);
+            return new Tuple<long, long>((long)(mean - k * stdDev), (long)(mean + k * stdDev));
         }
 
         public static double CoefficientOfVariation(IEnumerable<double> data)

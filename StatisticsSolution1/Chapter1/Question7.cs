@@ -35,6 +35,21 @@ namespace Chapter1
 
             // Q 3
             Console.WriteLine("Q3: {0}", Statistics.Percentile(data, 0.75));
+
+            double mean = Statistics.Mean(data);
+            double stdDev = Statistics.StandardDeviation(data);
+
+            Console.WriteLine("Mean: {0}", mean);
+            Console.WriteLine("Standard Deviation: {0}", stdDev);
+
+            double[] ks = { 0.5, 1.5, 2.1 };
+
+            foreach (double k in ks)
+            {
+                Tuple<long, long> range = Statistics.EmpiricalRuleRange(data, k);
+                Console.WriteLine("mean - {2}*stdDev: {0}, mean + {2}*stdDev: {1}", range.Item1, range.Item2, k);
+                Console.WriteLine("Percentage of data within {0} standard deviations of the mean: {1}", k, Statistics.EmpiricalRule(data, k));
+            }
         }
     }
 }
