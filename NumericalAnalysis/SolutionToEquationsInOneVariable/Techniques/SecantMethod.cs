@@ -41,12 +41,12 @@ namespace SolutionToEquationsInOneVariable.Techniques
         {
             Func<double, double> f;
 
-            // f = cos(x) - x
-            f = x => Math.Cos(x) - x;
+            // f = cos(x) - x/2
+            f = x => Math.Cos(x) - x / 2;
 
-            var result = Solve(f, 0.5, 1);
+            var result = Solve(f, -3, 3);
 
-            Console.WriteLine("f(x) = cos(x) - x");
+            Console.WriteLine("f(x) = cos(x) - x/2");
             Console.WriteLine("Root: {0}", result.Item1);
             Console.WriteLine("Iterations: {0}", result.Item2);
         }

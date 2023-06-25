@@ -46,6 +46,13 @@ namespace SolutionToEquationsInOneVariable.Techniques
 
             var result = Solve(f, df, 1);
             Console.WriteLine(result);
+
+            // Let f(x) = x^2 − 6 and p0 = 1. Use Newton’s method to find p2.
+            f = x => Math.Pow(x, 2) - 6;
+            df = x => 2 * x;
+
+            result = Solve(f, df, 1);
+            Console.WriteLine(result);
         }
     }
 }
