@@ -19,6 +19,7 @@ namespace order_api.Controllers
             _usersService = usersService;
             _logger = logger;
         }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {

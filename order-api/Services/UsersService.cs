@@ -23,6 +23,7 @@ namespace order_api.Services
 
         public async Task<User> CreateAsync(User user)
         {
+            user.Id = null;
             await _users.InsertOneAsync(user);
             return user;
         }
@@ -45,6 +46,22 @@ namespace order_api.Services
         public async Task DeleteAsync(string id)
         {
             await _users.DeleteOneAsync(user => user.Id == id);
+        }
+
+        public async Task<User> FindByUsernameAsync(string username)
+        {
+            return await _users.Find(user => user.Username == username).FirstOrDefaultAsync();
+        }
+
+        public async Task<User> FindByEmailAsync(string email)
+        {
+            return await _users.Find(user => user.Email == email).FirstOrDefaultAsync();
+        }
+
+        public async Task<User> Login(User.LoginRequest request)
+        {
+            // find user such that (username | email) and password match
+            return await _users.Find(user => (user.Username == request.Username || user.Email == request.Username) && user.Password == request.Password).FirstOrDefaultAsync();
         }
     }
 }
