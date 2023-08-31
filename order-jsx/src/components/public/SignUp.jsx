@@ -2,6 +2,8 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
+import "./SignUp.dir/SignUp.css";
+
 import {
   Button,
   Form,
@@ -16,7 +18,8 @@ const SignUp = () => (
   <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
     <Grid.Column style={{ maxWidth: 450 }}>
       <Header as="h2" color="teal" textAlign="center">
-        <Image src="/logo.png" /> Sign-Up new account
+        {/* <Image src="/logo.png" />  */}
+        Sign-Up new account
       </Header>
       <Form size="large">
         <Segment stacked>
@@ -43,9 +46,9 @@ const SignUp = () => (
             type="password"
           />
 
-          <Button color="teal" fluid size="large">
+          <button className="button-signup-action">
             Sign Up
-          </Button>
+          </button>
         </Segment>
       </Form>
       <Message>

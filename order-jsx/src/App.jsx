@@ -72,8 +72,8 @@ class DesktopContainer extends Component {
                 <Menu.Item as="a">Company</Menu.Item>
                 <Menu.Item as="a">Careers</Menu.Item>
                 <Menu.Item position="right">
-                  <Link to="/login" className="auth-url">Log in</Link>
-                  <Link to="/signup" className="auth-url">Sign Up</Link>
+                  <Link to="/login" className="a-auth-url">Log in</Link>
+                  <Link to="/signup" className="a-auth-url">Sign Up</Link>
                 </Menu.Item>
               </Container>
             </Menu>
@@ -136,12 +136,8 @@ class MobileContainer extends Component {
                     <Icon name="sidebar" />
                   </Menu.Item>
                   <Menu.Item position="right">
-                    <Button as="a" inverted>
-                      Log in
-                    </Button>
-                    <Button as="a" inverted style={{ marginLeft: "0.5em" }}>
-                      Sign Up
-                    </Button>
+                    <Link to="/login" className="a-auth-url">Log in</Link>
+                    <Link to="/signup" className="a-auth-url">Sign Up</Link>
                   </Menu.Item>
                 </Menu>
               </Container>
