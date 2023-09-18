@@ -26,7 +26,7 @@ namespace order_api.Controllers
             return Ok(await _usersService.GetAsync());
         }
 
-        // GET: api/<UsersController>
+        // GET: api/<UsersController>/{id}
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<User>> Get(string id)
         {

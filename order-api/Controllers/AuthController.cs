@@ -5,7 +5,8 @@ using order_api.Services;
 namespace order_api.Controllers
 {
     [Route("api/[controller]")]
-    public class AuthController : Controller
+    [ApiController]
+    public class AuthController : ControllerBase
     {
         private readonly UsersService _usersService;
 
@@ -14,22 +15,22 @@ namespace order_api.Controllers
             _usersService = usersService;
         }
 
-        // POST api/<AuthController>
-        [HttpPost("/login")]
-        public async Task<ActionResult<User>> Login([FromBody] User.LoginRequest request)
+        // POST api/<AuthController>/login
+        [HttpPost("login")]
+        public async Task<ActionResult<User.LoginResponse>> Login([FromBody] User.LoginRequest request)
         {
-            var foundUser = await _usersService.Login(request);
+            var response = await _usersService.Login(request);
 
-            if (foundUser == null)
+            if (response.Id == String.Empty)
             {
                 return NotFound();
             }
 
-            return Ok(foundUser);
+            return Ok(response);
         }
 
-        // POST api/<AuthController>
-        [HttpPost("/register")]
+        // POST api/<AuthController>/register
+        [HttpPost("register")]
         public async Task<ActionResult<User>> Register([FromBody] User user)
         {
             var foundUserByUsername = await _usersService.FindByUsernameAsync(user.Username);

@@ -8,3 +8,24 @@
     display: inline-block;
     font-size: 16px;
 }
+
+.button-login-action--disabled {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.error-msg {
+    color: red;
+    display: block;
+    font-size: 14px;
+    margin-top: 15px;
+    float: left;
+}

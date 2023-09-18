@@ -6,8 +6,11 @@ import { Link } from "react-router-dom";
 
 import "./Login.dir/Login.css";
 
+import { net } from "../../io/net";
+
 import {
   Button,
+  Loader,
   Form,
   Grid,
   Header,
@@ -39,38 +42,36 @@ const LoginForm = () => {
           errors.password = "Password must be at least 4 characters";
         } else if (values.password.length > 10) {
           errors.password = "Password must be less than 10 characters";
-        } else if (!/^[a-zA-Z0-9]+$/i.test(values.password)) {
-          errors.password = "Password must contain only alphanumeric characters";
-        } else if (!/\d/.test(values.password)) {
-          errors.password = "Password must contain at least one number";
-        } else if (!/[a-zA-Z]/i.test(values.password)) {
-          errors.password = "Password must contain at least one letter";
-        } else if (!/[!@#$%^&*]/i.test(values.password)) {
-          errors.password = "Password must contain at least one special character";
-        } else if (values.password !== values.confirmPassword) {
-          errors.password = "Password and Confirm Password must match";
         }
         
         return errors;
       }}
       onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-
-          setSubmitting(false);
-        }, 400);
+        setTimeout(async () => {
+          try {
+            const response = await net.login(values.email, values.password);
+            console.log(response);
+            setSubmitting(false);
+          } catch (error) {
+            console.log(error);
+            setSubmitting(false);
+          }
+        }, 100);
       }}
     >
       {({
         values,
+        errors,
+        touched,
         handleChange,
         handleBlur,
         handleSubmit,
         isSubmitting,
-        /* and other goodies */
+        // isValid,
       }) => (
         <Form size="large" onSubmit={handleSubmit}>
           <Segment stacked>
+            <ErrorMessage name="email" component="div" className="error-msg" />
             <Form.Input
               fluid
               icon="user"
@@ -80,9 +81,10 @@ const LoginForm = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.email}
+              error={errors.email && touched.email}
             />
-            <ErrorMessage name="email" component="div" />
-
+            
+            <ErrorMessage name="password" component="div" className="error-msg" />
             <Form.Input
               fluid
               icon="lock"
@@ -93,16 +95,21 @@ const LoginForm = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.password}
+              error={errors.password && touched.password}
             />
-            <ErrorMessage name="password" component="div" />
-
-            <button
+            
+            { !isSubmitting && <>
+              <button
               className="button-login-action"
               type="submit"
-              disabled={isSubmitting}
-            >
-              Login
-            </button>
+              >
+                Login
+              </button>
+            </> }
+
+            { isSubmitting && <>
+              <Loader active inline size="small" />
+            </> }
           </Segment>
         </Form>
       )}
