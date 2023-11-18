@@ -1,30 +1,35 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+
 using order_api.Models;
 using order_api.Services;
 
 namespace order_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly UsersService _usersService;
+        private readonly AuthService _authService;
 
-        public AuthController(UsersService usersService)
+        public AuthController(UsersService usersService, AuthService authService)
         {
             _usersService = usersService;
+            _authService = authService;
         }
 
         // POST api/<AuthController>/login
         [HttpPost("login")]
         public async Task<ActionResult<User.LoginResponse>> Login([FromBody] User.LoginRequest request)
         {
-            var response = await _usersService.Login(request);
+            var user = await _usersService.FindByEmailAndPasswordAsync(request.Email, request.Password);
 
-            if (response.Id == String.Empty)
+            if (user == null)
             {
                 return NotFound();
             }
+
+            var response = await _authService.Login(request);
 
             return Ok(response);
         }
@@ -33,17 +38,9 @@ namespace order_api.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register([FromBody] User user)
         {
-            var foundUserByUsername = await _usersService.FindByUsernameAsync(user.Username);
-            var foundUserByEmail = await _usersService.FindByEmailAsync(user.Email);
+            var response = await _usersService.CreateAsync(user);
 
-            if (foundUserByUsername != null || foundUserByEmail != null)
-            {
-                return Conflict();
-            }
-
-            var createdUser = await _usersService.CreateAsync(user);
-
-            return CreatedAtAction(nameof(Login), new { id = createdUser.Id }, createdUser);
+            return Ok(response);
         }
     }
 }

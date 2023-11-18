@@ -9,17 +9,19 @@ import "./Login.dir/Login.css";
 import { net } from "../../io/net";
 
 import {
-  Button,
   Loader,
   Form,
   Grid,
   Header,
-  Image,
   Message,
   Segment,
 } from "semantic-ui-react";
 
+import { useUser } from "../context/UserContext";
+
 const LoginForm = () => {
+  const { login } = useUser();
+
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
@@ -50,8 +52,13 @@ const LoginForm = () => {
         setTimeout(async () => {
           try {
             const response = await net.login(values.email, values.password);
+
             console.log(response);
             setSubmitting(false);
+
+            if (response.status === 200) {
+              login(response.data);
+            }
           } catch (error) {
             console.log(error);
             setSubmitting(false);

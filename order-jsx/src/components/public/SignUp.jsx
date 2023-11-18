@@ -9,12 +9,10 @@ import { net } from "../../io/net";
 import "./SignUp.dir/SignUp.css";
 
 import {
-  Button,
   Loader,
   Form,
   Grid,
   Header,
-  Image,
   Message,
   Segment,
 } from "semantic-ui-react";

@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+
 using order_api.Config;
 using order_api.Services;
+
 using System.Text;
 
 namespace order_api
@@ -19,6 +21,7 @@ namespace order_api
             builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection(nameof(JwtConfig)));
 
             builder.Services.AddSingleton<UsersService>();
+            builder.Services.AddSingleton<AuthService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -58,6 +61,8 @@ namespace order_api
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
+                    options.SaveToken = true;
+                    options.RequireHttpsMetadata = false;
                     options.TokenValidationParameters = new()
                     {
                         ValidateIssuer = true,

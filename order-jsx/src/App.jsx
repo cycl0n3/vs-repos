@@ -27,6 +27,8 @@ import {
   Sidebar,
 } from "semantic-ui-react";
 
+import { useUser } from "./components/context/UserContext";
+
 import "./App.css";
 
 const queryClient = new QueryClient();
@@ -45,7 +47,7 @@ class DesktopContainer extends Component {
   toggleFixedMenu = (inView) => this.setState({ fixed: !inView });
 
   render() {
-    const { children } = this.props;
+    const { user, children } = this.props;
     const { fixed } = this.state;
 
     return (
@@ -72,8 +74,15 @@ class DesktopContainer extends Component {
                 <Menu.Item as="a">Company</Menu.Item>
                 <Menu.Item as="a">Careers</Menu.Item>
                 <Menu.Item position="right">
-                  <Link to="/login" className="a-auth-url">Log in</Link>
-                  <Link to="/signup" className="a-auth-url">Sign Up</Link>
+                  {user && <>
+                      <Link to="/profile" className="a-auth-url">{user.email}</Link>
+                    </>
+                  }
+
+                  {/* {!user && <> */}
+                    <Link to="/login" className="a-auth-url">Log in</Link>
+                    <Link to="/signup" className="a-auth-url">Sign Up</Link>
+                  {/* </>} */}
                 </Menu.Item>
               </Container>
             </Menu>
@@ -99,7 +108,7 @@ class MobileContainer extends Component {
   handleToggle = () => this.setState({ sidebarOpened: true });
 
   render() {
-    const { children } = this.props;
+    const { user, children } = this.props;
     const { sidebarOpened } = this.state;
 
     return (
@@ -119,8 +128,6 @@ class MobileContainer extends Component {
             <Menu.Item as="a">Work</Menu.Item>
             <Menu.Item as="a">Company</Menu.Item>
             <Menu.Item as="a">Careers</Menu.Item>
-            <Menu.Item as="a">Log in</Menu.Item>
-            <Menu.Item as="a">Sign Up</Menu.Item>
           </Sidebar>
 
           <Sidebar.Pusher dimmed={sidebarOpened}>
@@ -136,8 +143,15 @@ class MobileContainer extends Component {
                     <Icon name="sidebar" />
                   </Menu.Item>
                   <Menu.Item position="right">
+                  {user && <>
+                      <Link to="/profile" className="a-auth-url">{user.email}</Link>
+                    </>
+                  }
+
+                  {/* {!user && <> */}
                     <Link to="/login" className="a-auth-url">Log in</Link>
                     <Link to="/signup" className="a-auth-url">Sign Up</Link>
+                  {/* </>} */}
                   </Menu.Item>
                 </Menu>
               </Container>
@@ -156,16 +170,21 @@ MobileContainer.propTypes = {
   children: PropTypes.node,
 };
 
-const ResponsiveContainer = ({ children }) => (
+const ResponsiveContainer = ({ children }) => {
   /* Heads up!
    * For large applications it may not be best option to put all page into these containers at
    * they will be rendered twice for SSR.
    */
-  <MediaContextProvider>
-    <DesktopContainer>{children}</DesktopContainer>
-    <MobileContainer>{children}</MobileContainer>
-  </MediaContextProvider>
-);
+
+  const { user } = useUser();
+
+  return (
+    <MediaContextProvider>
+      <DesktopContainer user={user}>{children}</DesktopContainer>
+      <MobileContainer user={user}>{children}</MobileContainer>
+    </MediaContextProvider>
+  );
+};
 
 ResponsiveContainer.propTypes = {
   children: PropTypes.node,
